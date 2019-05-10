@@ -1,0 +1,43 @@
+Создать проект в идее. Собираться будет с gradle. На спрингбуте. Стандартный сгенерируется.
+
+
+поискать стандартный файл .gitignore. добавить в проект.
+
+в src/main создать пакет. com/energizer/bank/server.
+И в этом пакете:
+
+1. Создать абстрактный класс Account. У него поле protected int dollars.
+   Создать класс DepositAccount, который наследует Account.
+   Создать класс CreditAccount, который наследует Account. сделать ему поле int creditDollars (кредитные стредства. Предположим, когда клиент создаёт такой тип счёта, ему банк предоставляет кредит 1000$)
+2. Создать класс Client. У него поля
+- name
+- surname
+- email
+- age
+- gender (сделать Enum: MALE, FEMALE) прочитать вот это http://thefinestartist.com/effective-java/30
+- List<Account>
+
+Сделать геттеры и сеттеры.
+
+3. Создать класс NotEnoughMoneyException, который наследует Exception. Его будем бросать, если клиент хочет снять больше денег, чем есть в наличии.
+   Создать класс NotValidMoneyInputException, который наследует Exception. Его будем бросать, если клиент ввёл отрицательное значение.
+
+4. Создать interface AccountService
+с методами
+withdraw(int dollars, Account account) throws NotEnoughMoneyException, NotValidMoneyInputException
+deposit(int dollars, Account account) throws NotValidMoneyInputException
+transfer(int dollars, Account from, Account to) throws NotEnoughMoneyException, NotValidMoneyInputException
+
+Создать класс SimpleAccountService, который имплементирует AccountService.
+Метод withdraw
+Проверять, если это DepositAccount (узнать с помощью instance of), то списывать с dollars.
+Если CreditAccount, то проверить, если у него есть деньги на dollars, то снимать с них, а если суммы недостаточно, то остаток снимать с creditDollars.
+И бросать исключения, созданные в пункте 3, если их логика срабатывает.
+
+Метод deposit
+Проверять, если это DepositAccount (узнать с помощью instance of), то добавить к dollars.
+Если CreditAccount, то проверить, если у него creditDollars меньше 1000(кредит банка), то добиваем до 1000, остальное добавить на dollars.
+И бросать исключения, созданные в пункте 3, если их логика срабатывает.
+
+Метод transfer
+Самое вкусное и сложное, подумай сам) Нужно делать проверки по типу счёта, и тоже будет бросать исключения из пунктов 3.
