@@ -7,4 +7,16 @@ public class CreditAccount extends Account {
     public CreditAccount() {
         this.tmpCredit = 1000;
     }
+
+    public int getTmpCredit() {
+        return tmpCredit;
+    }
+
+    public int getCreditDollars() {
+        return creditDollars;
+    }
+
+    public void setCreditDollars(int creditDollars) {
+        this.creditDollars = creditDollars;
+    }
 }
