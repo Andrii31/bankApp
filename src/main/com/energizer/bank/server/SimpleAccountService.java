@@ -8,11 +8,11 @@ class SimpleAccountService implements AccountService {
 
         if (account instanceof DepositAccount) {
             if (account.dollars < dollars){throw new NotEnoughMoneyException();}
-            account.dollars = (account.dollars-dollars);
+            account.dollars -= dollars;
 
         } else if (account instanceof CreditAccount){
             if (account.dollars + ((CreditAccount) account).creditDollars<= dollars) {throw new NotEnoughMoneyException();}
-            else if (account.dollars>=dollars){account.dollars = (account.dollars-dollars);}
+            else if (account.dollars>=dollars){account.dollars -= dollars;}
                 else {
                     int creditVariable = (((CreditAccount) account).creditDollars + account.dollars - dollars);
                     account.dollars = 0;
@@ -26,13 +26,13 @@ class SimpleAccountService implements AccountService {
         if (dollars<=0){throw new NotValidMoneyInputException();}
 
         if (account instanceof DepositAccount){
-            account.dollars=account.dollars+dollars;
+            account.dollars += dollars;
         }else if (account instanceof CreditAccount){
             if (((CreditAccount) account).tmpCredit != ((CreditAccount) account).creditDollars){
                 int dolg = (((CreditAccount) account).tmpCredit-((CreditAccount) account).creditDollars);
-                ((CreditAccount) account).creditDollars = (((CreditAccount) account).creditDollars+dolg);
+                ((CreditAccount) account).creditDollars += dolg;
                 account.dollars = account.dollars+dollars-dolg;
-            }else{ account.dollars = account.dollars+dollars;}
+            }else{ account.dollars += dollars;}
         }
     }
 
