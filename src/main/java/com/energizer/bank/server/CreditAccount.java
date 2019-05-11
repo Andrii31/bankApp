@@ -1,16 +1,11 @@
 package com.energizer.bank.server;
 
+import static com.energizer.bank.server.AccountService.CREDIT_ACCOUNT_LIMIT;
+
 public class CreditAccount extends Account {
-    protected int tmpCredit;
-    protected int creditDollars = tmpCredit;
 
-    public CreditAccount() {
-        this.tmpCredit = 1000;
-    }
+    protected int creditDollars = CREDIT_ACCOUNT_LIMIT;
 
-    public int getTmpCredit() {
-        return tmpCredit;
-    }
 
     public int getCreditDollars() {
         return creditDollars;
