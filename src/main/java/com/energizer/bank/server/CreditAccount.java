@@ -6,7 +6,6 @@ public class CreditAccount extends Account {
 
     protected int creditDollars = CREDIT_ACCOUNT_LIMIT;
 
-
     public int getCreditDollars() {
         return creditDollars;
     }

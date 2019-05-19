@@ -1,6 +1,9 @@
 package com.energizer.bank.server;
 
- interface AccountService {
+import java.util.List;
+import java.util.Map;
+
+interface AccountService {
 
     int CREDIT_ACCOUNT_LIMIT = 1000;
 
@@ -10,5 +13,8 @@ package com.energizer.bank.server;
 
     void transfer(int dollars, Account from, Account to) throws NotEnoughMoneyException, NotValidMoneyInputException;
 
+    Map<Long, Integer> getAvailableMoney(List<Account> accounts);
+
+    Map<Long, Integer> getDebts(List<Account> accounts);
 
 }
