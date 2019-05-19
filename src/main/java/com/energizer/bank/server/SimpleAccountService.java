@@ -7,7 +7,9 @@ class SimpleAccountService implements AccountService {
     @Override
     public void withdraw(int dollars, Account account) throws NotEnoughMoneyException, NotValidMoneyInputException {
 
-        if (Objects.isNull(account)){throw new IllegalArgumentException();}
+        if (Objects.isNull(account)) {
+            throw new IllegalArgumentException();
+        }
 
         if (dollars <= 0) {
             throw new NotValidMoneyInputException();
@@ -34,7 +36,9 @@ class SimpleAccountService implements AccountService {
 
     @Override
     public void deposit(int dollars, Account account) throws NotValidMoneyInputException {
-        if (Objects.isNull(account)){throw new IllegalArgumentException();}
+        if (Objects.isNull(account)) {
+            throw new IllegalArgumentException();
+        }
         if (dollars <= 0) {
             throw new NotValidMoneyInputException();
         }
@@ -44,9 +48,14 @@ class SimpleAccountService implements AccountService {
         } else if (account instanceof CreditAccount) {
             CreditAccount creditAccount = (CreditAccount) account;
             if (CREDIT_ACCOUNT_LIMIT != creditAccount.getCreditDollars()) {
+
                 int dolg = (CREDIT_ACCOUNT_LIMIT - creditAccount.getCreditDollars());
-                creditAccount.setCreditDollars(creditAccount.getCreditDollars() + dolg);
-                account.setDollars(account.getDollars() + dollars - dolg);
+                if (dolg < dollars) {
+                    creditAccount.setCreditDollars(creditAccount.getCreditDollars() + dolg);
+                    account.setDollars(account.getDollars() + dollars - dolg);
+                } else {
+                    creditAccount.setCreditDollars(creditAccount.getCreditDollars() + dollars);
+                }
             } else {
                 account.setDollars(account.getDollars() + dollars);
             }
@@ -55,8 +64,12 @@ class SimpleAccountService implements AccountService {
 
     @Override
     public void transfer(int dollars, Account from, Account to) throws NotEnoughMoneyException, NotValidMoneyInputException {
-        if (Objects.isNull(from)){throw new IllegalArgumentException();}
-        if (Objects.isNull(to)){throw new IllegalArgumentException();}
+        if (Objects.isNull(from)) {
+            throw new IllegalArgumentException();
+        }
+        if (Objects.isNull(to)) {
+            throw new IllegalArgumentException();
+        }
         withdraw(dollars, from);
         deposit(dollars, to);
     }
