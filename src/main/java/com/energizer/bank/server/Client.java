@@ -2,7 +2,7 @@ package com.energizer.bank.server;
 
 import java.util.List;
 
-public class Client {
+public class Client implements Cloneable {                  //Сlonable для тестирования
     private String name, surmame, email;
     private int age;
     private List<Account> accounts;
@@ -46,5 +46,17 @@ public class Client {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    protected Object clone() throws CloneNotSupportedException {                            //для тестирования
+        return super.clone();
     }
 }

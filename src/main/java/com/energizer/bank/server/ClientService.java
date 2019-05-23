@@ -1,5 +1,6 @@
 package com.energizer.bank.server;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public interface ClientService {
@@ -42,5 +43,10 @@ public interface ClientService {
      * Returns id of account and debt. If there is no credit accounts or no debts on accounts, returns empty map
      */
     Map<Long, Integer> getDebt(Client client);
+
+    /**
+     * Map for save clients
+     */
+
 
 }

@@ -13,8 +13,12 @@ interface AccountService {
 
     void transfer(int dollars, Account from, Account to) throws NotEnoughMoneyException, NotValidMoneyInputException;
 
+    /**
+     * Returns id of account and available money. If there is no accounts or no money on accounts, returns empty map
+     */
     Map<Long, Integer> getAvailableMoney(List<Account> accounts);
 
     Map<Long, Integer> getDebts(List<Account> accounts);
+
 
 }
