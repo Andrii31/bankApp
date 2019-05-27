@@ -1,5 +1,7 @@
 package com.energizer.bank.server;
 
+import com.energizer.bank.server.entity.Client;
+
 import java.util.HashMap;
 import java.util.Map;
 

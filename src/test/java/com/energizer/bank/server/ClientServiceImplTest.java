@@ -1,10 +1,10 @@
 package com.energizer.bank.server;
 
+import com.energizer.bank.server.entity.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 
@@ -27,7 +27,7 @@ public class ClientServiceImplTest {
     private ClientServiceImpl clientService;
 
     private SimpleAccountService simpleAccountService;
-    private  Client client1;
+    private Client client1;
     private List<Account> accounts1;
     private DepositAccount depositAccount1;
     private CreditAccount creditAccount1;

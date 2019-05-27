@@ -1,5 +1,8 @@
 package com.energizer.bank.server;
 
+import com.energizer.bank.server.entity.Account;
+import com.energizer.bank.server.entity.CreditAccount;
+import com.energizer.bank.server.entity.DepositAccount;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

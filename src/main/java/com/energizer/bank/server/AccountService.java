@@ -1,9 +1,11 @@
 package com.energizer.bank.server;
 
+import com.energizer.bank.server.entity.Account;
+
 import java.util.List;
 import java.util.Map;
 
-interface AccountService {
+public interface AccountService {
 
     int CREDIT_ACCOUNT_LIMIT = 1000;
 
