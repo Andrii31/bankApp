@@ -1,5 +1,8 @@
 package com.energizer.bank.server.entity;
 
+import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.ListIndexBase;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class Client implements Cloneable, Serializable {                  //Сlo
     private int age;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ListIndexBase(1)
     private List<Account> accounts = new ArrayList<>();
 
 //    @Transient

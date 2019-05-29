@@ -49,10 +49,4 @@ public abstract class Account implements Serializable {
     public Account() {
     }
 
-    @Override
-    public String toString() {
-        return "Account [id=" + id + ", dollars=" + dollars + "]";
-    }
-
-
 }
