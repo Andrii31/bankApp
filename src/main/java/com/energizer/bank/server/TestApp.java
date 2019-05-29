@@ -1,6 +1,6 @@
 package com.energizer.bank.server;
 
-import com.energizer.bank.server.dao.DAOImpl;
+import com.energizer.bank.server.dao.ClientDAOImpl;
 import com.energizer.bank.server.entity.*;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class TestApp {
 
         AccountService accountService = new SimpleAccountService();
         ClientService clientService = new ClientServiceImpl(accountService);
-        DAOImpl daoImpl = new DAOImpl();
+        ClientDAOImpl daoImpl = new ClientDAOImpl();
 
 /**
  * Create Client 1 with Accounts (Credit : 300, Deposit : 500) -->2 acc
@@ -72,7 +72,7 @@ public class TestApp {
         clientService.save(client2);
 
 /**
- * save with BD via DAOImpl
+ * save with BD via ClientDAOImpl
  */
         daoImpl.save(client1);
         daoImpl.save(client2);
@@ -95,23 +95,22 @@ public class TestApp {
 /**
  * test find id by email
  */
-List<Account> testListAcc = null;
-        Client testClient = null;
+        List<Account> testListAcc;
+        Client testClient;
         try {
             testClient = daoImpl.findClientByEmail("client1@mail.mail");
             System.out.println("id testClient====  " + testClient.getId());
             System.out.println("name testClient====  " + testClient.getName());
+            System.out.println("Gender testClient====  " + testClient.getGender());
+            System.out.println("email testClient====  " + testClient.getEmail());
             testListAcc = testClient.getAccounts();
-            System.out.println("Accounts in client id = " + testClient.getId()+"   is "+testListAcc.size());
+            System.out.println("Accounts in client id = " + testClient.getId() + " is " + testListAcc.size());
             System.out.println(testListAcc.get(0));
-            System.out.println(testListAcc.get(1));
+//            System.out.println(testListAcc.get(1));
 
         } catch (NullPointerException e) {
             System.out.println("Oupppssss...... No Client with this email");
         }
-
-
-    //    System.out.println("Accounts in client id = " + testClient.getId()+"is "+testListAcc.);
 
     }
 }

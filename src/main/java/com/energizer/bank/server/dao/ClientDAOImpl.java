@@ -3,15 +3,15 @@ package com.energizer.bank.server.dao;
 import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.Client;
 import com.energizer.bank.server.util.HibernateUtil;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class DAOImpl implements DAO {
+public class ClientDAOImpl implements ClientDAO {
 
     Transaction transaction = null;
 
@@ -65,25 +65,33 @@ public class DAOImpl implements DAO {
 
     }
 
-
     /**
-     * Return -1 if NoUser with this email
+     * Return null if NoUser with this email
      */
     @Override
     public Client findClientByEmail(String email) {
-        Client client;
+        Client client = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery cr = cb.createQuery(Client.class);
+            Root root = cr.from(Client.class);
+            cr.select(root);
+            Query query = session.createQuery(cr);
+            List<Client> results = query.getResultList();
 
-            Criteria userCriteria = session.createCriteria(Client.class);
-            userCriteria.add(Restrictions.eq("email", email));
-            client = (Client) userCriteria.uniqueResult();
+            for (Client clt : results) {
+                if (clt.getEmail().equals(email)) client = clt;
+            }
+
+            /**
+             * Add accounts to List<Accounts> for client with specific parameters
+             */
             String hql = "FROM Account WHERE client_id = :paramId";
-            Query query = session.createQuery(hql);
-            query.setParameter("paramId", client.getId());
-            List<Account> accounts = ((org.hibernate.query.Query) query).list();
+            Query queryAccounts = session.createQuery(hql);
+            queryAccounts.setParameter("paramId", client.getId());
+            List<Account> accounts = ((org.hibernate.query.Query) queryAccounts).list();
             client.setAccounts(accounts);
-            session.close();
         }
         return client;
     }

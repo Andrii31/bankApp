@@ -1,6 +1,6 @@
 package com.energizer.bank.server.entity;
 
-import org.hibernate.annotations.IndexColumn;
+import com.energizer.bank.server.Gender;
 import org.hibernate.annotations.ListIndexBase;
 
 import javax.persistence.*;
