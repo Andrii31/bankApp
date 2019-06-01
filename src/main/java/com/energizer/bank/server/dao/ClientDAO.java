@@ -4,8 +4,11 @@ import com.energizer.bank.server.entity.Client;
 
 public interface ClientDAO {
     void save(Client client);
-    void delete (Client client);
-    void update (Client client);
-    Client findClientByEmail (String email);
+
+    void delete(Client client);
+
+    void update(Client client);
+
+    Client findClientByEmail(String email);
 
 }

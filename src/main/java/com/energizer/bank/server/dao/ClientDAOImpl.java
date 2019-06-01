@@ -5,6 +5,7 @@ import com.energizer.bank.server.entity.Client;
 import com.energizer.bank.server.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class ClientDAOImpl implements ClientDAO {
 
-    Transaction transaction = null;
+    public Transaction transaction = null;
 
     public void save(Client client) {
 
@@ -65,7 +66,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     }
 
-    /**
+    /*
      * Return null if NoUser with this email
      */
     @Override
@@ -84,8 +85,8 @@ public class ClientDAOImpl implements ClientDAO {
                 if (clt.getEmail().equals(email)) client = clt;
             }
 
-            /**
-             * Add accounts to List<Accounts> for client with specific parameters
+            /*
+              Add accounts to List<Accounts> for client with specific parameters
              */
             String hql = "FROM Account WHERE client_id = :paramId";
             Query queryAccounts = session.createQuery(hql);

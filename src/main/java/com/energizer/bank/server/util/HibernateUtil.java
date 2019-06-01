@@ -1,6 +1,9 @@
 package com.energizer.bank.server.util;
 
-import com.energizer.bank.server.entity.*;
+import com.energizer.bank.server.entity.Account;
+import com.energizer.bank.server.entity.Client;
+import com.energizer.bank.server.entity.CreditAccount;
+import com.energizer.bank.server.entity.DepositAccount;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -24,7 +27,7 @@ public class HibernateUtil {
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "create-drop");
+                settings.put(Environment.HBM2DDL_AUTO, "update");                                        // before was      create-drop
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Client.class);
                 configuration.addAnnotatedClass(Account.class);

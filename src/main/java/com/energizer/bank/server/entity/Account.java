@@ -7,8 +7,6 @@ import java.io.Serializable;
 @Table(name = "account")
 @DiscriminatorColumn(name = "ACC_TYPE")
 public abstract class Account implements Serializable {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -16,7 +14,6 @@ public abstract class Account implements Serializable {
 
     @Column(name = "account_dollars")
     protected int dollars;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")

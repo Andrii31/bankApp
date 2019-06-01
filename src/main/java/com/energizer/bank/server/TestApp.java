@@ -1,10 +1,15 @@
 package com.energizer.bank.server;
 
+import com.energizer.bank.server.dao.ClientDAO;
 import com.energizer.bank.server.dao.ClientDAOImpl;
-import com.energizer.bank.server.entity.*;
+import com.energizer.bank.server.entity.Account;
+import com.energizer.bank.server.entity.Client;
+import com.energizer.bank.server.entity.CreditAccount;
+import com.energizer.bank.server.entity.DepositAccount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TestApp {
 
@@ -27,13 +32,12 @@ public class TestApp {
     public static void main(String[] args) throws PersistException, NotValidMoneyInputException, NotEnoughMoneyException {
 
         AccountService accountService = new SimpleAccountService();
-        ClientService clientService = new ClientServiceImpl(accountService);
-        ClientDAOImpl daoImpl = new ClientDAOImpl();
+        ClientDAO clientDAO = new ClientDAOImpl();
+        ClientService clientService = new ClientServiceImpl(accountService, clientDAO);
 
-/**
- * Create Client 1 with Accounts (Credit : 300, Deposit : 500) -->2 acc
+/*
+  Create Client 1 with Accounts (Credit : 300, Deposit : 500) -->2 acc
  */
-        //
         Client client1 = new Client();
         List<Account> accounts1 = new ArrayList<>();
         Account depositAccount1 = new DepositAccount();
@@ -51,8 +55,8 @@ public class TestApp {
         client1.setSurmame("Ivanov");
         client1.setGender(Gender.MALE);
 
-/**
- * Create Client 2 with Account(Deposit : 0)
+/*
+  Create Client 2 with Account(Deposit : 0)
  */
         Client client2 = new Client();
         List<Account> accounts2 = new ArrayList<>();
@@ -61,56 +65,40 @@ public class TestApp {
         depositAccount2.setDollars(0);
         accounts2.add(depositAccount2);
         client2.setAccounts(accounts2);
-
         client2.setEmail("client2@mail.mail");
         client2.setAge(25);
         client2.setName("Oksana");
         client2.setSurmame("Oksanovna");
         client2.setGender(Gender.FEMALE);
-        // save with ClientService for tmp test
+
+/*
+  save clients in BD via ClientService
+ */
         clientService.save(client1);
         clientService.save(client2);
 
-/**
- * save with BD via ClientDAOImpl
- */
-        daoImpl.save(client1);
-        daoImpl.save(client2);
+        // Return clients from ClientService
+        Client returnedFromDBClient_1 = clientService.getByEmail("client1@mail.mail");
+        Client returnedFromDBClient_2 = clientService.getByEmail("client2@mail.mail");
 
-        // get clients from ClientService
-        Client gettedClient1 = clientService.getByEmail("client1@mail.mail");
-        Client gettedClient2 = clientService.getByEmail("client2@mail.mail");
+        // find some account_type in the Clients for transfer
+        CreditAccount foundCreditAccount1 = findCreditAccount(returnedFromDBClient_1);
+        DepositAccount foundDepositAccount2 = findDepositAccount(returnedFromDBClient_2);
 
         // transfer 1300 dollars (500 from Deposit, 800 from credit money)
-        CreditAccount GettedCreditAccount1 = findCreditAccount(gettedClient1);
-        DepositAccount GettedDepositAccount2 = findDepositAccount(gettedClient2);
-        accountService.transfer(1300, GettedCreditAccount1, GettedDepositAccount2);
+        accountService.transfer(1300, foundCreditAccount1, foundDepositAccount2);
 
-/**
- * Update clients in DB
+/*
+  Update clients in DB
  */
-        daoImpl.update(client1);
-        daoImpl.update(client2);
+        clientService.update(returnedFromDBClient_1);
+        clientService.update(returnedFromDBClient_2);
 
-/**
- * test find id by email
- */
-        List<Account> testListAcc;
-        Client testClient;
-        try {
-            testClient = daoImpl.findClientByEmail("client1@mail.mail");
-            System.out.println("id testClient====  " + testClient.getId());
-            System.out.println("name testClient====  " + testClient.getName());
-            System.out.println("Gender testClient====  " + testClient.getGender());
-            System.out.println("email testClient====  " + testClient.getEmail());
-            testListAcc = testClient.getAccounts();
-            System.out.println("Accounts in client id = " + testClient.getId() + " is " + testListAcc.size());
-            System.out.println(testListAcc.get(0));
-//            System.out.println(testListAcc.get(1));
 
-        } catch (NullPointerException e) {
-            System.out.println("Oupppssss...... No Client with this email");
-        }
+        Map<Long, Integer> someMap = clientService.getAvailableMoney((clientService.getByEmail("client2@mail.mail")));
+
+        System.out.println(someMap);
+
 
     }
 }

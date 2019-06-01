@@ -11,14 +11,18 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class Client implements Cloneable, Serializable {                  //Сlonable для тестирования
+public class Client implements Serializable {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int id;
+
     @Column(name = "first_name")
     private String name;
-    @Column(name = "first_surname")
+
+    @Column(name = "surname")
     private String surmame;
+
     @Column(name = "email")
     private String email;
     @Column(name = "age")
@@ -28,7 +32,6 @@ public class Client implements Cloneable, Serializable {                  //Сlo
     @ListIndexBase(1)
     private List<Account> accounts = new ArrayList<>();
 
-//    @Transient
     @Column(name = "gender")
     @Enumerated(EnumType.ORDINAL)       //EnumType.STRING - в БД - имя из enum. Сейчас - порядковый номер из enum
     private Gender gender;
@@ -91,10 +94,5 @@ public class Client implements Cloneable, Serializable {                  //Сlo
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
-    public Object clone() throws CloneNotSupportedException {                            //для тестирования
-        return super.clone();
-    }
-
 
 }

@@ -1,7 +1,6 @@
 package com.energizer.bank.server;
 
 
-
 import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.CreditAccount;
 import com.energizer.bank.server.entity.DepositAccount;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-class SimpleAccountService implements AccountService {
+public class SimpleAccountService implements AccountService {
 
     @Override
     public void withdraw(int dollars, Account account) throws NotEnoughMoneyException, NotValidMoneyInputException {
@@ -89,28 +88,41 @@ class SimpleAccountService implements AccountService {
     @Override
     public Map<Long, Integer> getAvailableMoney(List<Account> accounts) {
         Map<Long, Integer> tmpMapAvailableMoneyForReturn = new HashMap<>();
-        int notNullOnAccCounter = 0;                                                                                    //Счетчик ненулевого балланса. Если >0, то деньги есть на аккаунте
+        //Счетчики ненулевого балланса. Если >0, то деньги есть на аккаунте
+        int notNullOnDepositAccCounter = 0;
+        int notNullOnCreditAccCounter = 0;
         if (!accounts.isEmpty()) {
             for (Account acc : accounts) {
-                if (acc instanceof DepositAccount) {                                                                    //Если акк депозитный
-                    if (acc.getDollars() != 0)
-                        notNullOnAccCounter++;                                                                          //Проверка на ненулевой балланс
-                    else notNullOnAccCounter--;
-                    tmpMapAvailableMoneyForReturn.put(acc.getId(), acc.getDollars());
-                } else if (acc instanceof CreditAccount) {                                                              //Если акк кредитный
+                //Если акк депозитный
+                if (acc instanceof DepositAccount) {
+                    //Проверка на ненулевой балланс
+                    if (acc.getDollars() > 0) {
+                        notNullOnDepositAccCounter++;
+                        tmpMapAvailableMoneyForReturn.put(acc.getId(), acc.getDollars());
+                    } else
+                        notNullOnDepositAccCounter--;
+                }
+                //Если акк кредитный
+                if (acc instanceof CreditAccount) {
                     CreditAccount acc1 = (CreditAccount) acc;
-                    if ((acc1.getDollars() + acc1.getCreditDollars()) != 0)
-                        notNullOnAccCounter++;                      //Проверка на ненулевой балланс
-                    else notNullOnAccCounter--;
-                    tmpMapAvailableMoneyForReturn.put(acc.getId(), acc1.getDollars() + acc1.getCreditDollars());        //сумма денег кредит+доллары
+                    //Проверка на ненулевой балланс
+                    if ((acc1.getDollars() + acc1.getCreditDollars()) > 0) {
+                        notNullOnCreditAccCounter++;
+                        //сумма денег кредит+доллары
+                        tmpMapAvailableMoneyForReturn.put(acc.getId(), acc1.getDollars() + acc1.getCreditDollars());
+                    } else
+                        notNullOnCreditAccCounter--;
                 }
             }
         } else
-            return null;                                                                                                //если аккаунтов нет - то возвращаем пустую мапу
-        if (notNullOnAccCounter <= 0)
-            return null;                                                                                                //если денег нет - то возвращаем пустую мапу
+            //если аккаунтов нет - то возвращаем пустую мапу
+            return null;
+        //если денег нет - то возвращаем пустую мапу
+        if (notNullOnDepositAccCounter <= 0 & notNullOnCreditAccCounter <= 0)
+            return null;
         else
-            return tmpMapAvailableMoneyForReturn;                                                                       //если деньги есть - то сформированную временную мапу
+            //если деньги есть - то сформированную временную мапу
+            return tmpMapAvailableMoneyForReturn;
     }
 
 
