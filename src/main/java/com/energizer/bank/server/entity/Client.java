@@ -7,10 +7,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email", name = "naint")}
+)
 public class Client implements Serializable {
 
     @Id
@@ -23,13 +27,13 @@ public class Client implements Serializable {
     @Column(name = "surname")
     private String surmame;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "email",length = 30 )
+        private String email;
     @Column(name = "age")
     private int age;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ListIndexBase(1)
+
     private List<Account> accounts = new ArrayList<>();
 
     @Column(name = "gender")
@@ -95,4 +99,16 @@ public class Client implements Serializable {
         this.gender = gender;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return email.equals(client.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
 }

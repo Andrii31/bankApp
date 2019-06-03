@@ -11,7 +11,7 @@ public interface ClientService {
      *
      * @throws PersistException if failed to persist
      */
-    void save(Client client) throws PersistException;
+    void save(Client client) throws PersistException;  /// void - client потом проверять
 
     /**
      * Retrieves client by email

@@ -28,12 +28,31 @@ public class ClientServiceImplTest {
     private Client client2;
 
     @Before
-    public void setUp() {
+    public void setUp() throws PersistException {
 
         ClientDAO clientDAO = new ClientDAOImpl();
 
         accountService = new SimpleAccountService();
         clientService = new ClientServiceImpl(accountService, clientDAO);
+
+        //Удаление конкретных клиентов из базы по email
+
+        try {
+            while (true) {
+                clientService.remove(clientService.getByEmail("client1@mail.mail"));
+
+                try {
+                    while (true) {
+                        clientService.remove(clientService.getByEmail("client2@mail.mail"));
+
+                    }
+                } catch (NullPointerException e) {
+                }
+
+            }
+        } catch (NullPointerException e) {
+        }
+
 
         //клиент1
         client1 = new Client();
@@ -90,6 +109,8 @@ public class ClientServiceImplTest {
         assertEquals(client1.getEmail(), returnClient_1.getEmail());
         assertEquals(client1.getAccounts().size(), returnClient_1.getAccounts().size());
         if (client1.getAccounts().size() == returnClient_1.getAccounts().size()) {
+            System.out.println(client1.getAccounts());
+            System.out.println(returnClient_1.getAccounts());
             int accountsSize = client1.getAccounts().size();
             for (int index = 0; index < accountsSize; index++) {
                 assertEquals(client1.getAccounts().get(index).getClass(), returnClient_1.getAccounts().get(index).getClass());
@@ -132,14 +153,14 @@ public class ClientServiceImplTest {
     @Test
     public void remove() throws PersistException {
 
-      try {
-          while (true){
-              clientService.remove(clientService.getByEmail("client1@mail.mail"));
-          }
-      }catch (NullPointerException e){
-          System.out.println("It's okay");
+        try {
+            while (true) {
+                clientService.remove(clientService.getByEmail("client1@mail.mail"));
+            }
+        } catch (NullPointerException e) {
+            System.out.println("It's okay");
 
-      }
+        }
 
         clientService.save(client1);
         clientService.save(client2);

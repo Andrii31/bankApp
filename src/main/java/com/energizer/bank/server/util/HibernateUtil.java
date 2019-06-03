@@ -27,7 +27,7 @@ public class HibernateUtil {
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "update");                                        // before was      create-drop
+                settings.put(Environment.HBM2DDL_AUTO, "update");                                    //none    // before was      create-drop
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(Client.class);
                 configuration.addAnnotatedClass(Account.class);
