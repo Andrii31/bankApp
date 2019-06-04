@@ -14,15 +14,16 @@ import java.util.List;
 
 public class ClientDAOImpl implements ClientDAO {
 
-    public Transaction transaction = null;
+    // private Transaction transaction;
 
-    public void save(Client client) {
+    public Client save(Client client) {
+        Transaction transaction = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // save object
-            session.save(client);
+            // save client and set ID from returned PK
+            client.setId((Integer) session.save(client));
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -31,11 +32,12 @@ public class ClientDAOImpl implements ClientDAO {
             }
             e.printStackTrace();
         }
-        transaction = null;
+        return client;
     }
 
     @Override
     public void delete(Client client) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.delete(client);
@@ -46,12 +48,11 @@ public class ClientDAOImpl implements ClientDAO {
             }
             e.printStackTrace();
         }
-        transaction = null;
-
     }
 
     @Override
     public void update(Client client) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(client);
@@ -62,8 +63,6 @@ public class ClientDAOImpl implements ClientDAO {
             }
             e.printStackTrace();
         }
-        transaction = null;
-
     }
 
     /*

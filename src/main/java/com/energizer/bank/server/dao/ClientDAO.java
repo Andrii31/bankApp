@@ -3,7 +3,7 @@ package com.energizer.bank.server.dao;
 import com.energizer.bank.server.entity.Client;
 
 public interface ClientDAO {
-    void save(Client client);
+    Client save(Client client);
 
     void delete(Client client);
 

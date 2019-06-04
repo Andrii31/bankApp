@@ -16,9 +16,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void save(Client client) throws PersistException {
-        clientDAO.save(client);
+    public Client save(Client client) throws PersistException {
 
+
+        return clientDAO.save(client);
     }
 
     @Override
