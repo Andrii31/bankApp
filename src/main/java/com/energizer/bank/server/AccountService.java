@@ -1,10 +1,12 @@
 package com.energizer.bank.server;
 
 import com.energizer.bank.server.entity.Account;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Component
 public interface AccountService {
 
     int CREDIT_ACCOUNT_LIMIT = 1000;

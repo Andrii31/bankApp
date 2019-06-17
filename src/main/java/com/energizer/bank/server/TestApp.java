@@ -8,11 +8,14 @@ import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.Client;
 import com.energizer.bank.server.entity.CreditAccount;
 import com.energizer.bank.server.entity.DepositAccount;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SpringBootApplication
 public class TestApp {
 
     private static DepositAccount findDepositAccount(Client client) {
@@ -32,12 +35,14 @@ public class TestApp {
     }
 
     public static void main(String[] args) throws PersistException, NotValidMoneyInputException, NotEnoughMoneyException {
-
+        SpringApplication.run(TestApp.class, args);
         AccountService accountService = new SimpleAccountService();
         ClientDAO clientDAO = new ClientDAOImpl();
         ClientService clientService = new ClientServiceImpl(accountService, clientDAO);
 
         MoneyOperationsDAO moneyOperationsDAO = new MoneyOperationsDAOImpl();
+
+
 
 /*
   Create Client 1 with Accounts (Credit : 300, Deposit : 500) -->2 acc
@@ -82,17 +87,20 @@ public class TestApp {
         System.out.println(client2.getId());
         System.out.println(clientService.save(client2).getId());
 
+
+//        SpringApplication.run(TestApp.class, args);
+
         // Return clients from ClientService
-//        Client returnedFromDBClient_1 = clientService.getByEmail("client1@mail.mail");
-//        Client returnedFromDBClient_2 = clientService.getByEmail("client2@mail.mail");
+        Client returnedFromDBClient_1 = clientService.getByEmail("client1@mail.mail");
+        Client returnedFromDBClient_2 = clientService.getByEmail("client2@mail.mail");
 //
 //        // find some account_type in the Clients for transfer
-//        CreditAccount foundCreditAccount1 = findCreditAccount(returnedFromDBClient_1);
-//        DepositAccount foundDepositAccount1 = findDepositAccount(returnedFromDBClient_1);
-//        DepositAccount foundDepositAccount2 = findDepositAccount(returnedFromDBClient_2);
+        CreditAccount foundCreditAccount1 = findCreditAccount(returnedFromDBClient_1);
+        DepositAccount foundDepositAccount1 = findDepositAccount(returnedFromDBClient_1);
+        DepositAccount foundDepositAccount2 = findDepositAccount(returnedFromDBClient_2);
 //
 //
-//        moneyOperationsDAO.transfer(292, foundDepositAccount1, foundCreditAccount1);
+        moneyOperationsDAO.transfer(292, foundDepositAccount1, foundCreditAccount1);
 
 //        // transfer 1300 dollars (500 from Deposit, 800 from credit money)
 //        accountService.transfer(1300, foundCreditAccount1, foundDepositAccount2);

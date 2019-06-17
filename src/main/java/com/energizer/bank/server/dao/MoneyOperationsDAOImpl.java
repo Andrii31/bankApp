@@ -1,17 +1,33 @@
 package com.energizer.bank.server.dao;
 
+import com.energizer.bank.server.AccountConfiguration;
 import com.energizer.bank.server.AccountService;
 import com.energizer.bank.server.SimpleAccountService;
 import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MoneyOperationsDAOImpl implements MoneyOperationsDAO {
+    ApplicationContext context = new AnnotationConfigApplicationContext(AccountConfiguration.class);
+
+
+    //@Autowired
+    private AccountService simpleAccountService;
+
+
+    public MoneyOperationsDAOImpl() {
+        simpleAccountService = context.getBean(SimpleAccountService.class);
+    }
+
     @Override
     public void withdraw(int dollars, Account account) {
 
-        AccountService simpleAccountService = new SimpleAccountService();
+
         Transaction transaction = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -32,7 +48,7 @@ public class MoneyOperationsDAOImpl implements MoneyOperationsDAO {
     @Override
     public void deposit(int dollars, Account account) {
 
-        AccountService simpleAccountService = new SimpleAccountService();
+
         Transaction transaction = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -53,7 +69,7 @@ public class MoneyOperationsDAOImpl implements MoneyOperationsDAO {
     @Override
     public void transfer(int dollars, Account from, Account to) {
 
-        AccountService simpleAccountService = new SimpleAccountService();
+
         Transaction transaction = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -71,4 +87,6 @@ public class MoneyOperationsDAOImpl implements MoneyOperationsDAO {
             e.printStackTrace();
         }
     }
+
+
 }

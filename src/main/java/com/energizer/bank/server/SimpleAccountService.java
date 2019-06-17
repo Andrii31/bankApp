@@ -4,6 +4,7 @@ package com.energizer.bank.server;
 import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.CreditAccount;
 import com.energizer.bank.server.entity.DepositAccount;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SimpleAccountService implements AccountService {
+
 
     @Override
     public void withdraw(int dollars, Account account) throws NotEnoughMoneyException, NotValidMoneyInputException {
