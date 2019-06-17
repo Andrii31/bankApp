@@ -63,6 +63,7 @@ public class TestApp {
         client1.setName("Ivan");
         client1.setSurmame("Ivanov");
         client1.setGender(Gender.MALE);
+        client1.setPassword(1111);
 
 /*
   Create Client 2 with Account(Deposit : 0)
@@ -79,6 +80,7 @@ public class TestApp {
         client2.setName("Oksana");
         client2.setSurmame("Oksanovna");
         client2.setGender(Gender.FEMALE);
+        client2.setPassword(2222);
 
 /*
   save clients in BD via ClientService

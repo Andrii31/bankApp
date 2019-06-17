@@ -29,6 +29,12 @@ public class Client implements Serializable {
 
     @Column(name = "email",length = 30 )
         private String email;
+
+    @Column(name = "password")
+    private long password;
+
+
+
     @Column(name = "age")
     private int age;
 
@@ -97,6 +103,13 @@ public class Client implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+    public long getPassword() {
+        return password;
+    }
+
+    public void setPassword(long password) {
+        this.password = password;
     }
 
     @Override
