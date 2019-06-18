@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Страница регистрации</h3>
+<h3>Укажите Ваш @e-mail адресс, который в дальнейшем будет использоваться в качестве логина</h3>
+
+<form action="#" th:action="@{/registration1step}" th:object="${registration1step}" method="post">
+    <p>email: <input type="text" th:field="*{email}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
+
+
+
+
+
+
+<form action="/index">
+    <button type="submit">Что я тут делаю? Хочу на главную страницу</button>
+</form>
+
+
+</body>
+</html>

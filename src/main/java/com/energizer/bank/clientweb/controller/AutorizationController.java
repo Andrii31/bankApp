@@ -3,7 +3,9 @@ package com.energizer.bank.clientweb.controller;
 import com.energizer.bank.clientweb.Autorization;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AutorizationController {
@@ -18,7 +20,7 @@ public class AutorizationController {
     @GetMapping("/autorization")
     public String greetingForm(Model model) {
 
-        model.addAttribute("autorization", new Autorization() );
+        model.addAttribute("autorization", new Autorization());
 
         return "autorization";
     }
@@ -26,12 +28,9 @@ public class AutorizationController {
     @PostMapping("/autorization")
     public String greetingSubmit(@ModelAttribute Autorization autorization, Model model) {
         model.addAttribute("autorization", autorization);
-        if (autorization.getTmp().equals(autorization.getLogin())) return "user-already-exist";
-        else
-        return "result";
+
+            return "result";   // тут надо переправить на страницу с аккаунтом
     }
-
-
 
 
 }

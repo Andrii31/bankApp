@@ -3,6 +3,7 @@ package com.energizer.bank.clientweb;
 public class Autorization {
 
     private final String tmp = "qwerty";  //for tmp testing ---user already exist
+
     private String login;
     private long password;
 
