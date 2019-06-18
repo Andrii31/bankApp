@@ -8,13 +8,19 @@ import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.Client;
 import com.energizer.bank.server.entity.CreditAccount;
 import com.energizer.bank.server.entity.DepositAccount;
+import com.energizer.bank.server.exceptions.NotEnoughMoneyException;
+import com.energizer.bank.server.exceptions.NotValidMoneyInputException;
+import com.energizer.bank.server.exceptions.PersistException;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+//@SpringBootApplication
+@ComponentScan(value = "com.energizer.bank.clientweb")
+@EnableAutoConfiguration
 public class TestApp {
 
     private static DepositAccount findDepositAccount(Client client) {
@@ -34,7 +40,16 @@ public class TestApp {
     }
 
     public static void main(String[] args) throws PersistException, NotValidMoneyInputException, NotEnoughMoneyException {
-        SpringApplication.run(TestApp.class, args);
+
+        //Старт webApp
+        new Thread(
+                ()->SpringApplication.run(TestApp.class, args)
+
+        ).start();
+
+
+
+
         AccountService accountService = new SimpleAccountService();
         ClientDAO clientDAO = new ClientDAOImpl();
         ClientService clientService = new ClientServiceImpl(accountService, clientDAO);
@@ -60,7 +75,7 @@ public class TestApp {
         client1.setEmail("client1@mail.mail");
         client1.setAge(20);
         client1.setName("Ivan");
-        client1.setSurmame("Ivanov");
+        client1.setSurname("Ivanov");
         client1.setGender(Gender.MALE);
         client1.setPassword(1111);
 
@@ -77,7 +92,7 @@ public class TestApp {
         client2.setEmail("client2@mail.mail");
         client2.setAge(25);
         client2.setName("Oksana");
-        client2.setSurmame("Oksanovna");
+        client2.setSurname("Oksanovna");
         client2.setGender(Gender.FEMALE);
         client2.setPassword(2222);
 

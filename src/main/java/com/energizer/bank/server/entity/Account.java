@@ -14,7 +14,7 @@ public abstract class Account implements Serializable {
     private long id;
 
     @Column(name = "account_dollars")
-    protected int dollars;
+    private int dollars;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")

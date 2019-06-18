@@ -4,7 +4,8 @@ package com.energizer.bank.server;
 import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.CreditAccount;
 import com.energizer.bank.server.entity.DepositAccount;
-import org.springframework.stereotype.Component;
+import com.energizer.bank.server.exceptions.NotEnoughMoneyException;
+import com.energizer.bank.server.exceptions.NotValidMoneyInputException;
 
 import java.util.HashMap;
 import java.util.List;

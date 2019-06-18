@@ -6,6 +6,9 @@ import com.energizer.bank.server.entity.Account;
 import com.energizer.bank.server.entity.Client;
 import com.energizer.bank.server.entity.CreditAccount;
 import com.energizer.bank.server.entity.DepositAccount;
+import com.energizer.bank.server.exceptions.NotEnoughMoneyException;
+import com.energizer.bank.server.exceptions.NotValidMoneyInputException;
+import com.energizer.bank.server.exceptions.PersistException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,7 +74,7 @@ public class ClientServiceImplTest {
         client1.setEmail("client1@mail.mail");
         client1.setAge(20);
         client1.setName("Ivan");
-        client1.setSurmame("Ivanov");
+        client1.setSurname("Ivanov");
         client1.setGender(Gender.MALE);
 
         //клиент2
@@ -90,7 +93,7 @@ public class ClientServiceImplTest {
         client2.setEmail("client2@mail.mail");
         client2.setAge(35);
         client2.setName("Ivan2");
-        client2.setSurmame("Ivanov2");
+        client2.setSurname("Ivanov2");
         client2.setGender(Gender.MALE);
 
     }
@@ -104,7 +107,7 @@ public class ClientServiceImplTest {
 
         assertEquals(client1.getName(), returnClient_1.getName());
         assertEquals(client1.getAge(), returnClient_1.getAge());
-        assertEquals(client1.getSurmame(), returnClient_1.getSurmame());
+        assertEquals(client1.getSurname(), returnClient_1.getSurname());
         assertEquals(client1.getGender(), returnClient_1.getGender());
         assertEquals(client1.getEmail(), returnClient_1.getEmail());
         assertEquals(client1.getAccounts().size(), returnClient_1.getAccounts().size());
@@ -136,16 +139,16 @@ public class ClientServiceImplTest {
     @Test
     public void updateClient() throws PersistException {
         clientService.save(client1);
-        assertEquals("Ivanov", clientService.getByEmail("client1@mail.mail").getSurmame());
+        assertEquals("Ivanov", clientService.getByEmail("client1@mail.mail").getSurname());
         assertEquals("Ivan", clientService.getByEmail("client1@mail.mail").getName());
 
         Client clientForUpdate1 = clientService.getByEmail("client1@mail.mail");
-        clientForUpdate1.setSurmame("updatedSurname");
+        clientForUpdate1.setSurname("updatedSurname");
         clientForUpdate1.setName("updatedName");
 
         clientService.update(clientForUpdate1);
 
-        assertEquals("updatedSurname", clientService.getByEmail("client1@mail.mail").getSurmame());
+        assertEquals("updatedSurname", clientService.getByEmail("client1@mail.mail").getSurname());
         assertEquals("updatedName", clientService.getByEmail("client1@mail.mail").getName());
 
     }

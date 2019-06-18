@@ -80,9 +80,15 @@ public class ClientDAOImpl implements ClientDAO {
             Query query = session.createQuery(cr);
             List<Client> results = query.getResultList();
 
+
+
             for (Client clt : results) {
                 if (clt.getEmail().equals(email)) client = clt;
             }
+
+            if (client==null) return null;
+
+
 
             /*
               Add accounts to List<Accounts> for client with specific parameters

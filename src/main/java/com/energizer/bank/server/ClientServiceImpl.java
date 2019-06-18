@@ -16,26 +16,26 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client save(Client client) throws PersistException {
+    public Client save(Client client) {
 
 
         return clientDAO.save(client);
     }
 
     @Override
-    public Client getByEmail(String email) throws PersistException {
+    public Client getByEmail(String email) {
 
         return clientDAO.findClientByEmail(email);
     }
 
     @Override
-    public void update(Client client) throws PersistException {
+    public void update(Client client) {
         clientDAO.update(client);
 
     }
 
     @Override
-    public void remove(Client client) throws PersistException {
+    public void remove(Client client) {
         clientDAO.delete(client);
     }
 

@@ -10,17 +10,11 @@
 
 
 
-<form action="#" th:action="@{/autorization}" th:object="${autorization}" method="post">
+<form action="#" th:action="@{/authorization}" th:object="${authorization}" method="post">
     <p>Login: <input type="text" th:field="*{login}" /></p>
     <p>Password: <input type="text" th:field="*{password}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-
-
-
-
-
-
 
 
 

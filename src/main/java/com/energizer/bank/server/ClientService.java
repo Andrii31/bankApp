@@ -1,6 +1,7 @@
 package com.energizer.bank.server;
 
 import com.energizer.bank.server.entity.Client;
+import com.energizer.bank.server.exceptions.PersistException;
 
 import java.util.Map;
 
@@ -44,10 +45,5 @@ public interface ClientService {
      * Returns id of account and debt. If there is no credit accounts or no debts on accounts, returns empty map
      */
     Map<Long, Integer> getDebt(Client client);
-
-    /**
-     * Map for save clients
-     */
-
 
 }

@@ -1,15 +1,9 @@
 package com.energizer.bank.clientweb;
 
-public class Autorization {
-
-    private final String tmp = "qwerty";  //for tmp testing ---user already exist
+public class Authorization {
 
     private String login;
     private long password;
-
-    public String getTmp() {
-        return tmp;
-    }
 
     public String getLogin() {
         return login;

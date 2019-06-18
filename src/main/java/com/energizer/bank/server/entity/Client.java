@@ -1,7 +1,6 @@
 package com.energizer.bank.server.entity;
 
 import com.energizer.bank.server.Gender;
-import org.hibernate.annotations.ListIndexBase;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,12 +26,11 @@ public class Client implements Serializable {
     @Column(name = "surname")
     private String surmame;
 
-    @Column(name = "email",length = 30 )
-        private String email;
+    @Column(name = "email", length = 30)
+    private String email;
 
     @Column(name = "password")
     private long password;
-
 
 
     @Column(name = "age")
@@ -65,11 +63,11 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    public String getSurmame() {
+    public String getSurname() {
         return surmame;
     }
 
-    public void setSurmame(String surmame) {
+    public void setSurname(String surmame) {
         this.surmame = surmame;
     }
 
@@ -104,6 +102,7 @@ public class Client implements Serializable {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
     public long getPassword() {
         return password;
     }
