@@ -6,7 +6,7 @@ public class Registration {
     private String surname;
     private String email;
     private String accountType;
-    private long password;
+    private String password;
     private int age;
     private String genderType;
 
@@ -51,11 +51,11 @@ public class Registration {
         this.email = email;
     }
 
-    public long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(long password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

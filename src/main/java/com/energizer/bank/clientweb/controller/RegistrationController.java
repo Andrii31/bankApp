@@ -22,32 +22,9 @@ import java.util.Objects;
 public class RegistrationController {
 
     private ClientDAO clientDAO = new ClientDAOImpl();
-//    private String mail;
-
-//    @GetMapping("/registration1step")
-//    public String registration1stepForm(Model model) {
-//
-//        model.addAttribute("registration1step", new Registration());
-//
-//        return "registration1step";
-//    }
-//
-//    @PostMapping("/registration1step")
-//    public String registration1stepSubmit(@ModelAttribute Registration reg, Model model) {
-//        model.addAttribute("registration1step", reg);
-//
-//
-////        Client client = clientDAO.findClientByEmail(reg.getEmail());
-//
-//        if (!Objects.isNull(clientDAO.findClientByEmail(reg.getEmail()))) {
-//            return "user-already-exist";
-//        } else{
-//            mail = reg.getEmail();
-//            return "registration1stepOk";}
-//    }
 
     @GetMapping("/registration")
-    public String registration2stepForm(Model model) {
+    public String registrationForm(Model model) {
 
         model.addAttribute("registration", new Registration());
 
@@ -55,7 +32,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration2stepSubmit(@ModelAttribute Registration reg, Model model) {
+    public String registrationSubmit(@ModelAttribute Registration reg, Model model) {
         model.addAttribute("registration", reg);
 
 
@@ -82,15 +59,16 @@ public class RegistrationController {
             client.setSurname(reg.getSurname());
             client.setPassword(reg.getPassword());
 
-            if (reg.getAccountType()
-                    .toLowerCase()
-                    .equals("da")) {
-                accounts.add(new DepositAccount());
-                client.setAccounts(accounts);
+            if (reg.getAccountType().equals("da")) {
+                Account depo = new DepositAccount();
+                depo.setClient(client);
+                accounts.add(depo);
             } else {
-                accounts.add(new CreditAccount());
-                client.setAccounts(accounts);
+                Account credit  = new CreditAccount();
+                credit.setClient(client);
+                accounts.add(credit);
             }
+            client.setAccounts(accounts);
 
             clientDAO.save(client);
 

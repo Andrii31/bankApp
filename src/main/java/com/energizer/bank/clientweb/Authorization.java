@@ -3,7 +3,7 @@ package com.energizer.bank.clientweb;
 public class Authorization {
 
     private String login;
-    private long password;
+    private String password;
 
     public String getLogin() {
         return login;
@@ -13,11 +13,11 @@ public class Authorization {
         this.login = login;
     }
 
-    public long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(long password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

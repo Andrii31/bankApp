@@ -10,27 +10,26 @@
 
 
 <form action="#" th:action="@{/registration}" th:object="${registration}" method="post">
-    <p>email: <input type="text" th:field="*{email}" /></p>
-    <p>name: <input type="text" th:field="*{name}" /></p>
-    <p>surname: <input type="text" th:field="*{surname}" /></p>
-    <p>password: <input type="text" th:field="*{password}" /></p>
-    <p>age: <input type="text" th:field="*{age}" /></p>
-    <h5>MALE or FEMALE</h5>
-    <p>genderType: <input type="text" th:field="*{genderType}" /></p>
-    <h5>DA or CA</h5>
-    <p>accountType: <input type="text" th:field="*{accountType}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <p>email: <input type="text" th:field="*{email}"/></p>
+    <p>password: <input type="password" th:field="*{password}"/></p>
+    <p>name: <input type="text" th:field="*{name}"/></p>
+    <p>surname: <input type="text" th:field="*{surname}"/></p>
+    <p>age: <input type="text" th:field="*{age}"/></p>
+
+    <h5>Choice your gender</h5>
+    <select th:field="*{genderType}">
+        <option th:value="MALE">Male</option>
+        <option th:value="FEMALE">Female</option>
+    </select>
+
+    <h5>Choice your first account</h5>
+    <select th:field="*{accountType}">
+        <option th:value="da">Deposit Account</option>
+        <option th:value="ca">Credit Account</option>
+    </select>
+
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

@@ -26,11 +26,11 @@ public class Client implements Serializable {
     @Column(name = "surname")
     private String surmame;
 
-    @Column(name = "email", length = 30)
+    @Column(name = "email", length = 30, nullable = false)
     private String email;
 
     @Column(name = "password")
-    private long password;
+    private String password;
 
 
     @Column(name = "age")
@@ -103,11 +103,11 @@ public class Client implements Serializable {
         this.gender = gender;
     }
 
-    public long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(long password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
